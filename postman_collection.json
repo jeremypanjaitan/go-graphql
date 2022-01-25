@@ -1,0 +1,196 @@
+{
+	"info": {
+		"_postman_id": "cc01ff1a-3a7c-4c0a-8bb5-94f7340eb61a",
+		"name": "go-graphql",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "go-graphql-get",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "graphql",
+					"graphql": {
+						"query": "query {\r\n    product(id: 1){\r\n        id\r\n        name\r\n        price\r\n    }\r\n}",
+						"variables": ""
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/api/graphql",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"api",
+						"graphql"
+					],
+					"query": [
+						{
+							"key": "query",
+							"value": "{product(id:1){name,info,price}}",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "go-graphql-create",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "graphql",
+					"graphql": {
+						"query": "mutation {\r\n    create(name:\"Inca Kola\",info:\"Inca Kola is a soft drink that was created in Peru in 1935 by British immigrant Joseph Robinson Lindley using lemon verbena (wiki)\",price:1.99){\r\n        id,name,info,price\r\n    }\r\n}",
+						"variables": ""
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/api/graphql",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"api",
+						"graphql"
+					],
+					"query": [
+						{
+							"key": "query",
+							"value": "{product(id:1){name,info,price}}",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "go-graphql-update",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "graphql",
+					"graphql": {
+						"query": "mutation {\r\n   update(id:1,name:\"test\",info:\"test info\",price:3.95){\r\n       id,name,info,price\r\n    }\r\n}",
+						"variables": ""
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/api/graphql",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"api",
+						"graphql"
+					],
+					"query": [
+						{
+							"key": "query",
+							"value": "{product(id:1){name,info,price}}",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "go-graphql-delete",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "graphql",
+					"graphql": {
+						"query": "mutation {\r\n   delete(id:1){\r\n       id,name,info,price\r\n    }\r\n}",
+						"variables": ""
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/api/graphql",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"api",
+						"graphql"
+					],
+					"query": [
+						{
+							"key": "query",
+							"value": "{product(id:1){name,info,price}}",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "go-graphql-list",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "graphql",
+					"graphql": {
+						"query": "{\r\n    productList {\r\n        id\r\n        name\r\n        \r\n    }\r\n}",
+						"variables": ""
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/api/graphql",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"api",
+						"graphql"
+					],
+					"query": [
+						{
+							"key": "query",
+							"value": "{product(id:1){name,info,price}}",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "http://localhost:3000",
+			"type": "string"
+		}
+	]
+}
