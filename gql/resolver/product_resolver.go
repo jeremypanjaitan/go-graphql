@@ -7,7 +7,8 @@ import (
 )
 
 type ProductResolverEntity interface {
-	ResolveProductListField(graphql.ResolveParams) (interface{}, error)
+	ResolveProductListField(p graphql.ResolveParams) (interface{}, error)
+	ResolveProductDetailField(p graphql.ResolveParams) (interface{}, error)
 }
 type ProductResolver struct {
 	productRepo repo.ProductRepoEntity
@@ -17,6 +18,14 @@ func NewProductResolver(productRepo repo.ProductRepoEntity) ProductResolverEntit
 	return &ProductResolver{productRepo: productRepo}
 }
 
-func (p *ProductResolver) ResolveProductListField(graphql.ResolveParams) (interface{}, error) {
+func (p *ProductResolver) ResolveProductListField(gp graphql.ResolveParams) (interface{}, error) {
 	return p.productRepo.GetAllProduct(), nil
+}
+
+func (p *ProductResolver) ResolveProductDetailField(gp graphql.ResolveParams) (interface{}, error) {
+	id, ok := gp.Args["id"].(int)
+	if ok {
+		return p.productRepo.GetDetailProduct(id), nil
+	}
+	return nil, nil
 }

@@ -18,6 +18,16 @@ func NewQueryType(productType ProductTypeEntity, productResolver resolver.Produc
 	object := graphql.NewObject(graphql.ObjectConfig{
 		Name: "Query",
 		Fields: graphql.Fields{
+			"product": &graphql.Field{
+				Type:        productType.GetObject(),
+				Description: "Get product by id",
+				Args: graphql.FieldConfigArgument{
+					"id": &graphql.ArgumentConfig{
+						Type: graphql.Int,
+					},
+				},
+				Resolve: productResolver.ResolveProductDetailField,
+			},
 			"productList": &graphql.Field{
 				Type:        graphql.NewList(productType.GetObject()),
 				Description: "Get product list",

@@ -25,6 +25,7 @@ var products = []model.Product{
 
 type ProductRepoEntity interface {
 	GetAllProduct() []model.Product
+	GetDetailProduct(id int) model.Product
 }
 
 type ProductRepo struct{}
@@ -35,4 +36,13 @@ func NewProductRepo() ProductRepoEntity {
 
 func (p *ProductRepo) GetAllProduct() []model.Product {
 	return products
+}
+
+func (p *ProductRepo) GetDetailProduct(id int) model.Product {
+	for _, product := range products {
+		if int(product.ID) == id {
+			return product
+		}
+	}
+	return model.Product{}
 }
