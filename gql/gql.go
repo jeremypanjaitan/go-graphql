@@ -1,6 +1,10 @@
 package gql
 
-import "github.com/graphql-go/graphql"
+import (
+	"go-graphql/gql/types"
+
+	"github.com/graphql-go/graphql"
+)
 
 type GraphqlEntity interface {
 	ExecuteQuery(query string) *graphql.Result
@@ -11,10 +15,12 @@ type Graphql struct {
 }
 
 func NewGraphql(
-	queryType *graphql.Object,
+	queryType types.QueryTypeEntity,
+	mutationType types.MutationTypeEntity,
 ) GraphqlEntity {
 	graphqlSchema, _ := graphql.NewSchema(graphql.SchemaConfig{
-		Query: queryType,
+		Query:    queryType.GetObject(),
+		Mutation: mutationType.GetObject(),
 	})
 	return &Graphql{
 		graphqlSchema: graphqlSchema,

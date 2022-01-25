@@ -1,6 +1,8 @@
 package repo
 
-import "go-graphql/model"
+import (
+	"go-graphql/model"
+)
 
 var products = []model.Product{
 	{
@@ -26,6 +28,7 @@ var products = []model.Product{
 type ProductRepoEntity interface {
 	GetAllProduct() []model.Product
 	GetDetailProduct(id int) model.Product
+	CreateProduct(product model.Product) model.Product
 }
 
 type ProductRepo struct{}
@@ -45,4 +48,9 @@ func (p *ProductRepo) GetDetailProduct(id int) model.Product {
 		}
 	}
 	return model.Product{}
+}
+
+func (p *ProductRepo) CreateProduct(product model.Product) model.Product {
+	products = append(products, product)
+	return product
 }
