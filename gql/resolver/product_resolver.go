@@ -14,6 +14,7 @@ type ProductResolverEntity interface {
 	ResolveProductDetailField(p graphql.ResolveParams) (interface{}, error)
 	ResolveCreateProduct(gp graphql.ResolveParams) (interface{}, error)
 	ResolveUpdateProduct(gp graphql.ResolveParams) (interface{}, error)
+	ResolveDeleteProduct(gp graphql.ResolveParams) (interface{}, error)
 }
 type ProductResolver struct {
 	productRepo repo.ProductRepoEntity
@@ -53,4 +54,9 @@ func (p *ProductResolver) ResolveUpdateProduct(gp graphql.ResolveParams) (interf
 	product.Price, _ = gp.Args["price"].(float64)
 	log.Println(product)
 	return p.productRepo.UpdateProduct(product, id), nil
+}
+
+func (p *ProductResolver) ResolveDeleteProduct(gp graphql.ResolveParams) (interface{}, error) {
+	id, _ := gp.Args["id"].(int)
+	return p.productRepo.DeleteProduct(id), nil
 }

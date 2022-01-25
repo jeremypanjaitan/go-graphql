@@ -53,6 +53,17 @@ func NewMutationType(productType ProductTypeEntity, productResolver resolver.Pro
 				},
 				Resolve: productResolver.ResolveUpdateProduct,
 			},
+
+			"delete": &graphql.Field{
+				Type:        productType.GetObject(),
+				Description: "Delete product by id",
+				Args: graphql.FieldConfigArgument{
+					"id": &graphql.ArgumentConfig{
+						Type: graphql.NewNonNull(graphql.Int),
+					},
+				},
+				Resolve: productResolver.ResolveDeleteProduct,
+			},
 		},
 	})
 	return &MutationType{
