@@ -29,6 +29,7 @@ type ProductRepoEntity interface {
 	GetAllProduct() []model.Product
 	GetDetailProduct(id int) model.Product
 	CreateProduct(product model.Product) model.Product
+	UpdateProduct(product model.Product, id int) model.Product
 }
 
 type ProductRepo struct{}
@@ -52,5 +53,19 @@ func (p *ProductRepo) GetDetailProduct(id int) model.Product {
 
 func (p *ProductRepo) CreateProduct(product model.Product) model.Product {
 	products = append(products, product)
+	return product
+}
+
+func (p *ProductRepo) UpdateProduct(product model.Product, id int) model.Product {
+	for i, p := range products {
+		if int64(id) == p.ID {
+			products[i].Name = product.Name
+			products[i].Info = product.Info
+			products[i].Price = product.Price
+			product = products[i]
+			break
+		}
+	}
+	product.ID = int64(id)
 	return product
 }

@@ -3,6 +3,7 @@ package resolver
 import (
 	"go-graphql/model"
 	"go-graphql/repo"
+	"log"
 	"math/rand"
 
 	"github.com/graphql-go/graphql"
@@ -12,6 +13,7 @@ type ProductResolverEntity interface {
 	ResolveProductListField(p graphql.ResolveParams) (interface{}, error)
 	ResolveProductDetailField(p graphql.ResolveParams) (interface{}, error)
 	ResolveCreateProduct(gp graphql.ResolveParams) (interface{}, error)
+	ResolveUpdateProduct(gp graphql.ResolveParams) (interface{}, error)
 }
 type ProductResolver struct {
 	productRepo repo.ProductRepoEntity
@@ -41,4 +43,14 @@ func (p *ProductResolver) ResolveCreateProduct(gp graphql.ResolveParams) (interf
 		Price: gp.Args["price"].(float64),
 	}
 	return p.productRepo.CreateProduct(product), nil
+}
+
+func (p *ProductResolver) ResolveUpdateProduct(gp graphql.ResolveParams) (interface{}, error) {
+	product := model.Product{}
+	id, _ := gp.Args["id"].(int)
+	product.Name, _ = gp.Args["name"].(string)
+	product.Info, _ = gp.Args["info"].(string)
+	product.Price, _ = gp.Args["price"].(float64)
+	log.Println(product)
+	return p.productRepo.UpdateProduct(product, id), nil
 }

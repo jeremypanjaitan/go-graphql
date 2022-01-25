@@ -34,6 +34,25 @@ func NewMutationType(productType ProductTypeEntity, productResolver resolver.Pro
 				},
 				Resolve: productResolver.ResolveCreateProduct,
 			},
+			"update": &graphql.Field{
+				Type:        productType.GetObject(),
+				Description: "Update product by id",
+				Args: graphql.FieldConfigArgument{
+					"id": &graphql.ArgumentConfig{
+						Type: graphql.NewNonNull(graphql.Int),
+					},
+					"name": &graphql.ArgumentConfig{
+						Type: graphql.String,
+					},
+					"info": &graphql.ArgumentConfig{
+						Type: graphql.String,
+					},
+					"price": &graphql.ArgumentConfig{
+						Type: graphql.Float,
+					},
+				},
+				Resolve: productResolver.ResolveUpdateProduct,
+			},
 		},
 	})
 	return &MutationType{
